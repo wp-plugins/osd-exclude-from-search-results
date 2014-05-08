@@ -23,8 +23,8 @@
 		$values = get_post_meta($post->ID);
 		$selected = ($values['exclude_from_search'][0] == 1) ? "checked='checked'" : '';
 		
+    	echo "<input type='checkbox' ".$selected." name='exclude_from_search' id='exclude_from_search' />";		
     	echo "<label for='exclude_from_search'>Exclude this page / post from the site search results? </label>";
-    	echo "<input type='checkbox' ".$selected." name='exclude_from_search' id='exclude_from_search' />";
 	}
 	
 	//save our custom page as footer box
