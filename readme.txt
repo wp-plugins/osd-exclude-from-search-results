@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, search results, exclude from search, posts, pages, hide from search
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,10 @@ Yes, as users ask us questions.
 
 = 1.0 =
 * Initial creation of the Exclude from Search Results plugin
+
+= 1.1 =
+* Add bulk updating options in the pages / posts list screens
+* Add column to quickly see status in pages / posts list screens
 
 == Upgrade Notice ==
 
