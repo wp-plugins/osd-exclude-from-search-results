@@ -3,7 +3,7 @@
 	Plugin Name: OSD Exclude From Search Results
 	Plugin URI: http://outsidesource.com
 	Description: A plugin that excludes selected pages or posts from the search results.
-	Version: 1.1
+	Version: 1.2
 	Author: OSD Web Development Team
 	Author URI: http://outsidesource.com
 	License: GPL2v2
@@ -77,10 +77,10 @@
 		if($post_type == 'post' || $post_type == 'page') {
 			echo "<script type='text/javascript'>
 					jQuery(document).ready(function() {
-						jQuery('<option>').val('osdRemove').text('OSD Make Searchable').appendTo('select[name=action]');
-						jQuery('<option>').val('osdEnable').text('OSD Make Non-Searchable').appendTo('select[name=action]');
-						jQuery('<option>').val('osdRemove').text('OSD Remove Search').appendTo('select[name=action2]');
-						jQuery('<option>').val('osdEnable').text('OSD Make Non-Searchable').appendTo('select[name=action2]');
+						jQuery('<option>').val('osdSearchable').text('OSD Make Searchable').appendTo('select[name=action]');
+						jQuery('<option>').val('osdNonSearchable').text('OSD Make Non-Searchable').appendTo('select[name=action]');
+						jQuery('<option>').val('osdSearchable').text('OSD Make Searchable').appendTo('select[name=action2]');
+						jQuery('<option>').val('osdNonSearchable').text('OSD Make Non-Searchable').appendTo('select[name=action2]');
 					});
 				</script>";
 		}
@@ -91,15 +91,15 @@
 	function osd_save_filter_bulk_action() {
 		$action = _get_list_table('WP_Posts_List_Table')->current_action();
 		
-		if(($action == 'osdRemove' || $action == 'osdEnable') && isset($_GET['post'])) {
+		if(($action == 'osdNonSearchable' || $action == 'osdSearchable') && isset($_GET['post'])) {
 			$post_ids = $_GET['post'];
-			$checked = ($action == 'osdRemove') ? 1 : 0;
+			$checked = ($action == 'osdNonSearchable') ? 1 : 0;
 			
 			foreach($post_ids as $post_id) {
 				update_post_meta($post_id, 'exclude_from_search', $checked);
 			}
 			
-			$url = (!wp_get_referer()) ? admin_url("edit.php?post_type=$post_type") : wp_get_referer();
+			$url = wp_get_referer();
 			$url = remove_query_arg(array('action', 'action2', 'tags_input', 'post_author', 'comment_status', 'ping_status', '_status',  'post', 'bulk_edit', 'post_view'), $url);
 		 	$url = add_query_arg('osdBulkFilter', '1', $url);
 
@@ -141,10 +141,31 @@
 	function osd_filter_column_style() {
 	   echo '<style type="text/css">
 			   #searchable, .column-searchable {
-					width: 10%;   
+					width: 12%;   
 					text-align: center !important;
 			   }
 			 </style>';
 	}
 	add_action('admin_head', 'osd_filter_column_style');
+
+	//make sortably by search filter status
+	function osd_register_searchable_sort($columns) {
+		$columns['searchable'] = 'searchable';
+		return $columns;
+	}
+	add_filter('manage_edit-post_sortable_columns', 'osd_register_searchable_sort');
+	add_filter('manage_edit-page_sortable_columns', 'osd_register_searchable_sort');
+	
+	//sort
+	function osd_searchable_orderby($vars) {
+		if(isset($vars['orderby']) && 'searchable' == $vars['orderby']) {
+			$vars = array_merge($vars, array(
+				'meta_key' => 'exclude_from_search',
+				'orderby' => 'meta_value_num'
+			));
+		}
+	 
+		return $vars;
+	}
+	add_filter('request', 'osd_searchable_orderby');
 ?>
