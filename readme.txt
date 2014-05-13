@@ -7,11 +7,11 @@ Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OSD Exclude From Search Results plugin allows you to check a box on the edit screen for a page or post that will exclude it in your site search results.
+OSD Exclude From Search Results plugin allows you to check a box on the edit screen or list screen for a page or post that will exclude it in your site search results.
 
 == Description ==
 
-OSD Exclude From Search Results plugin allows you to quickly remove a page or blog post from showing up in your site's search results.  This only changes the search results for the end user, not in the admin pages. The plugin adds a simple check box to the edit / create post screen to remove the post or page from the search results. It is extremely light weight, only 60 lines of code including the checkbox, so your site search will not slow down at all.
+OSD Exclude From Search Results plugin allows you to quickly remove a page or blog post from showing up in your site's search results.  This only changes the search results for the end user, not in the admin pages. The plugin adds a simple check box to the edit / create post screen and a new bulk action to the list view to remove the post or page from the search results. It is extremely light weight, only 60 lines of code including the checkbox, so your site search will not slow down at all.
 
 == Installation ==
 
@@ -28,6 +28,7 @@ Yes, as users ask us questions.
 == Screenshots ==
 
 1. Edit Post Screen with Checkbox
+1. Post List Screen with sortable column and new bulk action
 
 == Changelog ==
 
