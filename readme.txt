@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, search results, exclude from search, posts, pages, hide from search
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,7 @@ Yes, as users ask us questions.
 
 == Screenshots ==
 
-1. Edit Post Screen with Checkbox
+1. Edit Post Screen with Checkboxes
 1. Post List Screen with sortable column and new bulk action
 
 == Changelog ==
@@ -43,10 +43,17 @@ Yes, as users ask us questions.
 * Make the column sortable in the admin view of pages / posts
 * Tweak styling
 
+= 1.3 =
+* Add the ability to remove a page / post from menu 
+* Only removes from menus created with wp_page_menu()
+
 == Upgrade Notice ==
 
 = 1.0 =
 Adds quick and easy search result control
+
+= 1.3 =
+Ability to remove from menus as well
 
 == A brief Feature List ==
 
