@@ -11,13 +11,13 @@ OSD Exclude From Search Results plugin allows you to check a box on the edit scr
 
 == Description ==
 
-OSD Exclude From Search Results plugin allows you to quickly remove a page or blog post from showing up in your site's search results.  This only changes the search results for the end user, not in the admin pages. The plugin adds a simple check box to the edit / create post screen and a new bulk action to the list view to remove the post or page from the search results. It is extremely light weight, only 60 lines of code including the checkbox, so your site search will not slow down at all.
+OSD Exclude From Search Results plugin allows you to quickly remove a page or blog post from showing up in your site's search results.  This only changes the search results for the end user, not in the admin pages. The plugin adds a simple check box to the edit / create post screen and a new bulk action to the list view to remove the post or page from the search results. It is extremely light weight, only 60 lines of code including the checkbox, so your site search will not slow down at all. Now you can exclude pages from menus!
 
 == Installation ==
 
 1. Upload the osd-exclude-from-search-results directory to your `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Edit the page that you want to remove from the search, and check the new box
+3. Edit the page that you want to remove from the search / menus, and check the new box
 
 == Frequently Asked Questions ==
 
@@ -59,6 +59,7 @@ Ability to remove from menus as well
 
 1. Removes posts from search results
 2. Removes pages from search results
+3. Removes pages / posts from menus generated with wp_page_menu()
 3. Lightweight
 4. Can be modified with one line of code to include custom post types
 
