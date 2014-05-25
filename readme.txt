@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, search results, exclude from search, posts, pages, hide from search
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,9 @@ Yes, as users ask us questions.
 = 1.3 =
 * Add the ability to remove a page / post from menu 
 * Only removes from menus created with wp_page_menu()
+
+= 1.4 =
+* Bug fix with database table prefix
 
 == Upgrade Notice ==
 
