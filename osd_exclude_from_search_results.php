@@ -65,6 +65,7 @@
 					
 			$results = $wpdb->get_results($sql, ARRAY_A);
 			
+			$excludeArray = array();
 			foreach($results as $result) {
 				$excludeArray[] = $result['post_id'];
 			}
@@ -185,6 +186,7 @@
 				
 		$results = $wpdb->get_results($sql, ARRAY_A);
 		
+		$excludeArray = NULL;
 		foreach($results as $result) {
 			$excludeArray .= $result['post_id'] . ",";
 		}
