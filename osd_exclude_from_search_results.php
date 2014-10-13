@@ -3,7 +3,7 @@
 	Plugin Name: OSD Exclude From Search Results
 	Plugin URI: http://outsidesource.com
 	Description: A plugin that excludes selected pages or posts from the search results.
-	Version: 1.4
+	Version: 1.5
 	Author: OSD Web Development Team
 	Author URI: http://outsidesource.com
 	License: GPL2v2
@@ -34,14 +34,12 @@
 	//save our custom page as footer box
 	function osd_exclude_from_search_box_save($post_id) {
 		// Bail if we're doing an auto save
-		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { 
-			return;
-		}
-		
 		// if our current user can't edit this post, bail
-		if(!current_user_can('edit_post')) {
+		if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+			|| ($_POST['post_type'] == 'page' && !current_user_can('edit_page', $post_id)) 
+			|| !current_user_can('edit_post', $post_id)) {
 			return;
-		}
+        }
 
 		// Make sure your data is set before trying to save it
 		$checkedSearch = (isset($_POST['exclude_from_search'])) ? 1 : 0;
