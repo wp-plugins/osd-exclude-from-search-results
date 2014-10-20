@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, search results, exclude from search, posts, pages, hide from search
 Requires at least: 3.4
 Tested up to: 4.0
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ Yes, as users ask us questions.
 = 1.5 =
 * User permission updates
 
+= 1.6 =
+* Fixed bug with quick edit overwriting plugin settings
+
 == Upgrade Notice ==
 
 = 1.0 =
@@ -63,6 +66,9 @@ Ability to remove from menus as well
 
 = 1.5 =
 User permission updates
+
+= 1.6 =
+* Fixed bug with quick edit overwriting plugin settings
 
 == A brief Feature List ==
 

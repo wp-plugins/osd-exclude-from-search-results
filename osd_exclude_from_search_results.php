@@ -36,6 +36,7 @@
 		// Bail if we're doing an auto save
 		// if our current user can't edit this post, bail
 		if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+			|| (defined('DOING_AJAX') && DOING_AJAX)
 			|| ($_POST['post_type'] == 'page' && !current_user_can('edit_page', $post_id)) 
 			|| !current_user_can('edit_post', $post_id)) {
 			return;
