@@ -3,7 +3,7 @@ Contributors: osdwebdev
 Tags: wordpress, search results, exclude from search, posts, pages, hide from search
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ A: Version 2.0 was released with a new administration screen to include custom p
 
 
 == Upgrade Notice ==
+
+= 2.1 =
+Bug fixes
 
 = 1.5 =
 User permission updates

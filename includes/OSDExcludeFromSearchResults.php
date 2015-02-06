@@ -90,6 +90,14 @@ class OSDExcludeFromSearchResults {
 	//remove any posts / pages from the search results that are marked to be excluded
 	function osd_exclude_from_search_filter($query) {
 		if($query->is_search) {
+			$acceptable_post_types = array();
+			$all_post_types_array = get_post_types(array('public' => 1), 'array');
+	        foreach($all_post_types_array as $post_type) {
+	        	if (!isset($this->user_settings['exclude_all'][$post_type->name])) {
+		            $acceptable_post_types[] = $post_type->name;
+		        }
+	        }
+
 			global $wpdb;
 			$prefix = $wpdb->base_prefix;
 			
@@ -106,6 +114,7 @@ class OSDExcludeFromSearchResults {
 			}
 			
 			$query->set('post__not_in', $excludeArray);
+			$query->set('post_type', $acceptable_post_types);
 		}
 		return $query;
 	}
