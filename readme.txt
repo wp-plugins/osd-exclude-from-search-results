@@ -67,6 +67,9 @@ A: Version 2.0 was released with a new administration screen to include custom p
 
 == Upgrade Notice ==
 
+= 2.2 =
+Bug fixes
+
 = 2.1 =
 Bug fixes
 

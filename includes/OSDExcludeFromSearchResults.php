@@ -50,9 +50,11 @@ class OSDExcludeFromSearchResults {
 
 	//register meta box to be able to use page as footer for ease of management
 	function osd_exclude_from_search_box_add() {
-		foreach($this->user_settings['show_on'] as $name => $label) {
-			add_meta_box('osd_exclude_from_search', 'OSD Exclude From Search', array($this, 'osd_efs_cb'), $name, 'side', 'default');
-	    }
+		if (isset($this->user_settings['show_on'])) {
+			foreach($this->user_settings['show_on'] as $name => $label) {
+				add_meta_box('osd_exclude_from_search', 'OSD Exclude From Search', array($this, 'osd_efs_cb'), $name, 'side', 'default');
+		    }
+		}
 	}
 
 	//custom metabox call back
