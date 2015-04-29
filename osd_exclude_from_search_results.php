@@ -3,7 +3,7 @@
 Plugin Name: OSD Exclude From Search Results
 Plugin URI: http://outsidesource.com
 Description: A plugin that excludes selected pages or posts from the search results.
-Version: 2.1
+Version: 2.3
 Author: OSD Web Development Team
 Author URI: http://outsidesource.com
 License: GPL2v2
