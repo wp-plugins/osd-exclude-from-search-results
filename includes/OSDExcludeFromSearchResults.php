@@ -6,11 +6,13 @@ class OSDExcludeFromSearchResults {
         'show_on' => array(),
         'exclude_all' => array()
     );
+    public $attachment = false;
 
 	function __construct() { 
 		$user_settings = get_option('osd_exclude_from_search_options');
 		$this->user_settings = ($user_settings === false) ? $this->user_settings : $user_settings;
 		$current_post_type = (isset($_GET['post_type'])) ? $_GET['post_type'] : 'post';
+		$media_post_type = (get_post_type($_GET['post']) == 'attachment') ? true : false;
 
 		// Add actions to only pages that are included in the user's settings
 		global $pagenow;
@@ -18,15 +20,29 @@ class OSDExcludeFromSearchResults {
 			if ($pagenow == 'post.php') {
 				add_action('add_meta_boxes', array($this, 'osd_exclude_from_search_box_add')); 
 				add_action('save_post', array($this, 'osd_exclude_from_search_box_save'));
+				// Attachments
+				add_action('edit_attachment', array($this, 'osd_exclude_from_search_box_save'));
+				add_action('add_attachment', array($this, 'osd_exclude_from_search_box_save'));
 			}
 
-			//if ($pagenow == 'edit.php' && isset($this->user_settings['show_on'][$_GET['post_type']])) {
+			// Attachments only
+			if ($pagenow == 'upload.php') {
+				$this->attachment = true;
+				add_action('admin_footer-upload.php', array($this, 'osd_add_filter_bulk_action'));
+				add_action('load-upload.php', array($this, 'osd_save_filter_bulk_action'));
+				add_action('admin_notices', array($this, 'osd_bulk_filter_admin_msg'));
+				add_filter('manage_media_columns', array($this, 'osd_filtered_column'));
+				add_action('manage_media_custom_column' , array($this, 'osd_populate_filtered_column'), 10, 2);
+				add_filter("manage_upload_sortable_columns", array($this, 'osd_register_searchable_sort'));
+			}
+
+			// Posts / Custom post types
 			if ($pagenow == 'edit.php' && isset($this->user_settings['show_on'][$current_post_type])) {
 				add_action('admin_footer-edit.php', array($this, 'osd_add_filter_bulk_action'));
 				add_action('load-edit.php', array($this, 'osd_save_filter_bulk_action'));
 				add_action('admin_notices', array($this, 'osd_bulk_filter_admin_msg'));
 
-				if ($current_post_type == 'posts') {
+				if ($current_post_type == 'posts' && $pagenow != 'upload.php') {
 					add_filter('manage_posts_columns' , array($this, 'osd_filtered_column')); // Posts only
 					add_action('manage_posts_custom_column' , array($this, 'osd_populate_filtered_column'), 10, 2); // Posts only
 				} else {
@@ -37,7 +53,7 @@ class OSDExcludeFromSearchResults {
 						add_action("manage_{$current_post_type}_posts_custom_column" , array($this, 'osd_populate_filtered_column'), 10, 2); // Non-hierarchical customs
 					}
 				}
-				add_filter("manage_edit-{$current_post_type}_sortable_columns", array($this, 'osd_register_searchable_sort')); // All 
+				add_filter("manage_edit-{$current_post_type}_sortable_columns", array($this, 'osd_register_searchable_sort')); // All 				
 
 				add_action('admin_head', array($this, 'osd_filter_column_style'));
 				add_filter('request', array($this, 'osd_searchable_orderby'));
@@ -50,11 +66,9 @@ class OSDExcludeFromSearchResults {
 
 	//register meta box to be able to use page as footer for ease of management
 	function osd_exclude_from_search_box_add() {
-		if (isset($this->user_settings['show_on'])) {
-			foreach($this->user_settings['show_on'] as $name => $label) {
-				add_meta_box('osd_exclude_from_search', 'OSD Exclude From Search', array($this, 'osd_efs_cb'), $name, 'side', 'default');
-		    }
-		}
+		foreach($this->user_settings['show_on'] as $name => $label) {
+			add_meta_box('osd_exclude_from_search', 'OSD Exclude From Search', array($this, 'osd_efs_cb'), $name, 'side', 'default');
+	    }
 	}
 
 	//custom metabox call back
@@ -136,9 +150,10 @@ class OSDExcludeFromSearchResults {
 	//save the user selection
 	function osd_save_filter_bulk_action() {
 		$action = _get_list_table('WP_Posts_List_Table')->current_action();
-		
-		if(($action == 'osdNonSearchable' || $action == 'osdSearchable') && isset($_GET['post'])) {
-			$post_ids = $_GET['post'];
+		$post_id_key = ($this->attachment) ? 'media' : 'post';
+
+		if(($action == 'osdNonSearchable' || $action == 'osdSearchable') && isset($_GET[$post_id_key])) {
+			$post_ids = $_GET[$post_id_key];
 			$checked = ($action == 'osdNonSearchable') ? 1 : 0;
 			
 			foreach($post_ids as $post_id) {

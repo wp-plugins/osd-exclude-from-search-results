@@ -67,6 +67,9 @@ A: Version 2.0 was released with a new administration screen to include custom p
 
 == Upgrade Notice ==
 
+= 2.3 =
+Now works correctly with Media / Attachments post type
+
 = 2.2 =
 Bug fixes
 
