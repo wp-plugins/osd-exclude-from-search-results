@@ -2,8 +2,8 @@
 Contributors: osdwebdev
 Tags: wordpress, search results, exclude from search, posts, pages, hide from search
 Requires at least: 3.4
-Tested up to: 4.2
-Stable tag: 2.3
+Tested up to: 4.3
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ A: Version 2.0 was released with a new administration screen to include custom p
 
 
 == Upgrade Notice ==
+
+= 2.4 =
+Now Compatible with other custom searches on post types
 
 = 2.3 =
 Now works correctly with Media / Attachments post type
